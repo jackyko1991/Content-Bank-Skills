@@ -40,7 +40,7 @@ This will:
 
 The content-bank skill uses **proactive behavior**:
 
-- **Proactively offers to store** when Claude detects well-crafted paragraphs, useful code patterns, or content worth preserving
+- **Proactively offers to store** when Agent detects well-crafted paragraphs, useful code patterns, or content worth preserving
 - **Proactively offers to retrieve** when starting new work where banked content may be relevant
 
 You can also explicitly request:
@@ -58,7 +58,7 @@ Use the skill to guide idea development through questions:
 Help me brainstorm and bank ideas about {topic}
 ```
 
-Claude will ask questions one-by-one to help you articulate and refine your thoughts, then bank the results.
+Agent will ask questions one-by-one to help you articulate and refine your thoughts, then bank the results.
 
 ## Content Bank Structure
 
