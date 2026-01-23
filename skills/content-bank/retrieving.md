@@ -4,10 +4,11 @@ Retrieve previously banked content—writing or code—to use in current work.
 
 ## Workflow
 
-1. **Ask** the user what they need (topic, type, keywords)
-2. **Search** the content bank for matching entries
-3. **Present** results as a structured list with previews
-4. **Let the user** integrate content into their work (do not auto-insert)
+1. **Check** if `content-bank/topics.md` exists; if not, inform the user the content bank is empty
+2. **Ask** the user what they need (topic, type, keywords)
+3. **Search** the content bank for matching entries
+4. **Present** results as a structured list with previews
+5. **Let the user** integrate content into their work (do not auto-insert)
 
 ## Search Capabilities
 

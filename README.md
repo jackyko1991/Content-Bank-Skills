@@ -18,23 +18,29 @@ The **content-bank** skill helps you:
 
 ```bash
 git clone https://github.com/jackyko1991/Content-Bank-Skills
-mkdir -p .claude/skills
+```
 
-### Claude Code
+### Project-Local Installation
+
+Install the skill for a specific project:
+
+```bash
+mkdir -p .claude/skills
 cp -r Content-Bank-Skills/skills/content-bank .claude/skills/
 ```
 
-### Initialize the Content Bank
+### Global Installation
 
-Run the init script to create the content bank structure:
+Install the skill globally so it's available across all projects:
 
 ```bash
-./skills/content-bank/scripts/init.sh
+mkdir -p ~/.claude/skills
+cp -r Content-Bank-Skills/skills/content-bank ~/.claude/skills/
 ```
 
-This will:
-- Create `content-bank/topics.md` (the topic index)
-- Add reminders to `CLAUDE.md` and `AGENTS.md` (if present)
+With global installation, the content-bank skill will be available in any directory where you use Claude Code.
+
+The skill will automatically initialize on first use—simply start banking content and the `content-bank/` folder structure will be created automatically.
 
 ## How It Works
 

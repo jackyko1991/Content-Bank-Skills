@@ -11,6 +11,8 @@ Store reusable content—writing or code—into the content bank for future use.
 5. **Append** entry to the appropriate file with full metadata
 6. **Update** `topics.md` if adding a new topic
 
+> Note: Auto-initialization runs before any operation if the content bank doesn't exist (see SKILL.md).
+
 ## Entry Format
 
 ### Writing Content

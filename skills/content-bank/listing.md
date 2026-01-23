@@ -2,6 +2,10 @@
 
 List and browse the content bank—view topics and explore stored content.
 
+## Pre-check
+
+Before listing, check if `content-bank/topics.md` exists. If not, inform the user the content bank is empty and offer to bank some content first.
+
 ## Capabilities
 
 ### List Topics

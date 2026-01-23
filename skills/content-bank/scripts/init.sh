@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-# Initialize the content bank structure and add reminders to CLAUDE.md and AGENTS.md
+# Initialize the content bank structure and add reminders to agent instruction files
+# Usage: init.sh [--agent claude|other]
+#   --agent claude  Only update CLAUDE.md (for Claude Code)
+#   --agent other   Only update AGENTS.md (for other agents like Cursor, Codex)
+#   (no argument)   Update both files (manual initialization)
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -8,6 +12,22 @@ PROJECT_ROOT="${PROJECT_ROOT:-$(git rev-parse --show-toplevel 2>/dev/null || pwd
 CONTENT_BANK_DIR="$PROJECT_ROOT/content-bank"
 
 REMINDER_MARKER="<!-- CONTENT-BANK-REMINDER -->"
+AGENT_TYPE=""
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --agent)
+      AGENT_TYPE="$2"
+      shift 2
+      ;;
+    *)
+      echo "Unknown argument: $1"
+      echo "Usage: init.sh [--agent claude|other]"
+      exit 1
+      ;;
+  esac
+done
 
 # Function to check if reminder already exists in a file
 reminder_exists() {
@@ -57,32 +77,35 @@ else
   echo "Skipped: content-bank/topics.md (already exists)"
 fi
 
-# Add reminder to CLAUDE.md
+# Add reminder to agent instruction file(s)
 CLAUDE_MD="$PROJECT_ROOT/CLAUDE.md"
-
-if [[ -f "$CLAUDE_MD" ]]; then
-  if reminder_exists "$CLAUDE_MD"; then
-    echo "Skipped: CLAUDE.md (reminder already present)"
-  else
-    add_reminder "$CLAUDE_MD"
-    echo "Updated: CLAUDE.md with content bank reminder"
-  fi
-else
-  echo "Warning: CLAUDE.md not found at project root"
-fi
-
-# Add reminder to AGENTS.md
 AGENTS_MD="$PROJECT_ROOT/AGENTS.md"
 
-if [[ -f "$AGENTS_MD" ]]; then
-  if reminder_exists "$AGENTS_MD"; then
-    echo "Skipped: AGENTS.md (reminder already present)"
+# Function to update a single file
+update_agent_file() {
+  local file="$1"
+  local name="$2"
+  if [[ -f "$file" ]]; then
+    if reminder_exists "$file"; then
+      echo "Skipped: $name (reminder already present)"
+    else
+      add_reminder "$file"
+      echo "Updated: $name with content bank reminder"
+    fi
   else
-    add_reminder "$AGENTS_MD"
-    echo "Updated: AGENTS.md with content bank reminder"
+    echo "Warning: $name not found at project root"
   fi
+}
+
+# Update based on agent type
+if [[ "$AGENT_TYPE" == "claude" ]]; then
+  update_agent_file "$CLAUDE_MD" "CLAUDE.md"
+elif [[ "$AGENT_TYPE" == "other" ]]; then
+  update_agent_file "$AGENTS_MD" "AGENTS.md"
 else
-  echo "Warning: AGENTS.md not found at project root"
+  # No agent specified - update both (manual initialization)
+  update_agent_file "$CLAUDE_MD" "CLAUDE.md"
+  update_agent_file "$AGENTS_MD" "AGENTS.md"
 fi
 
 echo ""

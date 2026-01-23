@@ -27,6 +27,10 @@ Bank and retrieve reusable content for writing and coding—ideas, snippets, out
 - Starting a new piece where relevant banked content may exist
 - Facing a problem that might have a banked solution
 
+## Auto-Initialization
+
+**Before any store/retrieve/list operation**, check if `content-bank/topics.md` exists. If not, create it with the initial template to set up the content bank structure.
+
 ## Content Bank Structure
 
 ```
